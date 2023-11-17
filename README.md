@@ -59,3 +59,5 @@ int main()
     return 0;
 }
 ```
+
+Note: this is only a preview atm, if people enjoy it, i will make a more complex version with a bunch of new features soon
