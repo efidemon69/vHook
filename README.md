@@ -4,21 +4,7 @@ I created this in 1 hour because i was bored, and i hope it will help the newbie
 
 <img src="https://cdn.discordapp.com/attachments/1142220291859292411/1174944962853474394/image.png"/>
 
-# Retrieve current module base
-```cpp
-HMODULE current_mod = ( HMODULE ) ( vhook::get_module_base( ) );
-```
-
-# Grab section from its name
-```cpp
-SectionData section = vhook::get_section_by_name( ".text" );
-if ( section.start != 0 && section.size != 0 )
-{
-    printf( "Section virtual address: 0x%lx\n" , section.start );
-    printf( "Section size of raw data: %zu\n" , section.size );
-};
-```
-# Place trampoline hook
+# Trampoline hook example
 ```cpp
 int original_function() 
 {
@@ -48,6 +34,28 @@ int main()
     else 
         std::cerr << "Hooking failed." << std::endl;
 
+    return 0;
+}
+```
+
+# IAT function hook example
+```cpp
+typedef void (*TestFunction)();
+TestFunction original_test_function = []() { std::cout << "Original Test Function\n"; };
+
+void custom_test_function() 
+{
+    std::cout << "Custom Test Function\n";
+}
+
+int main()
+ {
+    if (vhook::iat_hook("TestFunction", reinterpret_cast<vhook::orig_test_func>(vhook::custom_test_function))) 
+        vhook::original_test_function();
+
+    else
+        std::cerr << "Hooking failed." << std::endl;
+    
     return 0;
 }
 ```
