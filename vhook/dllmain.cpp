@@ -17,7 +17,7 @@ auto vhook::entry( ) -> INT
     return true;
 }
 
-BOOL APIENTRY DllMain( HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved )
+BOOL APIENTRY DllMain( HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved )
 {
     DBG_UNREFERENCED_LOCAL_VARIABLE( hModule );
     DBG_UNREFERENCED_LOCAL_VARIABLE( lpReserved );
