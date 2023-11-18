@@ -129,7 +129,7 @@ auto vhook::iat_hook( const char* function_name , orig_test_func custom_func ) -
 	// Get DOS & NT Headers from module.
 	PIMAGE_DOS_HEADER dos_headers = ( PIMAGE_DOS_HEADER ) ( mod );
 	PIMAGE_NT_HEADERS nt_headers = ( PIMAGE_NT_HEADERS ) ( ( BYTE* ) ( mod ) +dos_headers->e_lfanew );
-	//  // Get the import descriptor table.
+	// Get the import descriptor table.
 	PIMAGE_IMPORT_DESCRIPTOR import_descriptor = ( PIMAGE_IMPORT_DESCRIPTOR ) ( ( BYTE* ) ( mod ) +nt_headers->OptionalHeader.DataDirectory[ IMAGE_DIRECTORY_ENTRY_IMPORT ].VirtualAddress );
 
 	// Loop through each import descriptor.
