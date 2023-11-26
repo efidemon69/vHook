@@ -167,6 +167,35 @@ namespace ntos
 	};
 }
 
+namespace memmanagement
+{ 
+	inline bool isValidPointer( uintptr_t address )
+	{
+		if ( address )
+			return true;
+		else
+			return false;
+	}
+
+	template<typename ReadT>
+	ReadT read( DWORD_PTR address , const ReadT& def = ReadT( ) )
+	{
+		if ( isValidPointer( address ) ) {
+			return *( ReadT* ) ( address );
+		}
+	}
+
+	template<typename WriteT>
+	bool write( DWORD_PTR address , WriteT value , const WriteT& def = WriteT( ) )
+	{
+		if ( isValidPointer( address ) ) {
+			*( WriteT* ) ( address ) = value;
+			return true;
+		}
+		return false;
+	}
+}
+
 // Note creating a class will lead the compiler by default to create a constructor for the class which can be sigged by anticheats.
 class vhook
 {
@@ -179,16 +208,4 @@ public:
 	static auto get_section_by_name( const char* P2 ) -> SectionData;
 	
 	static auto entry( ) -> INT;
-
-	template <typename T>
-	bool read( HANDLE P1 , uintptr_t P2 , T& P3 )
-	{
-		return ReadProcessMemory( P1 , reinterpret_cast< LPCVOID >( P2 ) , &P3 , sizeof( P3 ) , NULL ) != 0;
-	}
-
-	template <typename T>
-	bool write( HANDLE P1 , uintptr_t P2 , const T& P3 )
-	{
-		return WriteProcessMemory( P1 , reinterpret_cast< LPVOID >( P2 ) , &P3 , sizeof( P3 ) , NULL ) != 0;
-	}
 };
