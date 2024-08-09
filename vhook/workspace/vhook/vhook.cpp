@@ -18,7 +18,6 @@ auto vhook::open_console( ) -> void
 	{
 		printf( "FreeConsole: %p" , free_console );
 
-		// We set up a jump to skip FreeConsole and prevent it from closing the console (because byfron uses freeconsole as a protection so we prevent it).
 		static uintptr_t jmp = free_console + 0x6;
 		DWORD old_protection { };
 
